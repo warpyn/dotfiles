@@ -1,0 +1,7 @@
+{
+    "initial_working_directory": "~",
+    "editor_theme": "Merbivore Soft",
+    "posix_terminal_shell": "zsh",
+    "jobs_tab_visibility": "shown",
+    "editor_keybindings": "vim"
+}
