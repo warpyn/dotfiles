@@ -17,7 +17,6 @@ return {
                 "jsonls",
                 "marksman",
                 "tinymist",
-                "clangd",
             },
             automatic_enable = true,
         })
@@ -87,9 +86,6 @@ return {
             Lua = {}
           }
         })
-
-        -- c++
-        vim.api.nvim_set_hl(0, '@lsp.type.comment.cpp', {})
 
     end
 }
