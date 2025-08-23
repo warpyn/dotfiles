@@ -1,5 +1,10 @@
--- line numbers
+-- status column (sign column, line numbers, fold column)
 vim.opt.number = true
+vim.opt.signcolumn = "yes"
+vim.opt.statuscolumn = "%s%l  " -- disable fold column and directly add spaces to status column for padding
+
+-- vim.opt.statuscolumn = "%s%l%C" -- use fold column as spacing
+-- vim.opt.foldcolumn = "2"
 
 -- line wrap
 vim.opt.wrap = false
