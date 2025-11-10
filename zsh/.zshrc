@@ -49,6 +49,10 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humdrum/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humextra/bin:$PATH"
 
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/warpyn/.lmstudio/bin"
+# End of LM Studio CLI section
+
 # aliases
 alias v=nvim
 alias cdc="cd $HOME/chrysalis"
