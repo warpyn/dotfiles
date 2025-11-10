@@ -26,26 +26,30 @@ return {
         vim.lsp.config('*', { capabilities = capabilities })
 
         -- lsp diagnostics
-        vim.diagnostic.config({
-            severity_sort = true,
-            virtual_text = true
-        })
+        vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 
         -- pyright lsp
         vim.lsp.config('pyright', {
             root_markers = {
-                "__init__.py",
+                "requirements.txt",
+                "pyrightconfig.json",
                 "pyproject.toml",
+                "__init__.py",
+                ".git",
                 "setup.py",
                 "setup.cfg",
-                "requirements.txt",
-                "Pipfile",
-                "pyrightconfig.json",
-                ".git"
+                "Pipfile"
             },
             settings = {
                 python = {
-                    pythonPath = vim.fn.exepath("python")
+                    pythonPath = vim.fn.exepath("python"),
+                    analysis = {
+                        typeCheckingMode = "basic",
+                        useLibraryCodeForTypes = true,
+                        diagnosticSeverityOverrides = {
+                            reportMissingImports = "none"
+                        }
+                    }
                 }
             }
         })
@@ -54,37 +58,37 @@ return {
         -- copied from https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
         -- for the 'vim' global module
         vim.lsp.config('lua_ls', {
-          on_init = function(client)
-            if client.workspace_folders then
-              local path = client.workspace_folders[1].name
-              if
-                path ~= vim.fn.stdpath('config')
-                ---@diagnostic disable-next-line: undefined-field
-                and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-              then
-                return
-              end
-            end
-            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-              runtime = {
-                version = 'LuaJIT',
-                path = {
-                  'lua/?.lua',
-                  'lua/?/init.lua',
-                },
-              },
-              -- Make the server aware of Neovim runtime files
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  vim.env.VIMRUNTIME
-                }
-              }
-            })
-          end,
-          settings = {
-            Lua = {}
-          }
+            on_init = function (client)
+                if client.workspace_folders then
+                    local path = client.workspace_folders[1].name
+                    if
+                        path ~= vim.fn.stdpath('config')
+                        ---@diagnostic disable-next-line: undefined-field
+                        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+                    then
+                        return
+                    end
+                end
+                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                    runtime = {
+                        version = 'LuaJIT',
+                        path = {
+                          'lua/?.lua',
+                          'lua/?/init.lua',
+                        },
+                    },
+                    -- Make the server aware of Neovim runtime files
+                    workspace = {
+                        checkThirdParty = false,
+                        library = {
+                          vim.env.VIMRUNTIME
+                        }
+                    }
+                })
+            end,
+            settings = {
+                Lua = {}
+            }
         })
 
     end
