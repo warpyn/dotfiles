@@ -22,14 +22,14 @@ return {
         })
 
         -- lsp completion integration
-        local capabilities = require('blink.cmp').get_lsp_capabilities()
-        vim.lsp.config('*', { capabilities = capabilities })
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        vim.lsp.config("*", { capabilities = capabilities })
 
         -- lsp diagnostics
         vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 
         -- pyright lsp
-        vim.lsp.config('pyright', {
+        vim.lsp.config("pyright", {
             root_markers = {
                 "requirements.txt",
                 "pyrightconfig.json",
@@ -56,25 +56,25 @@ return {
 
         -- lua_ls lsp
         -- copied from https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
-        -- for the 'vim' global module
-        vim.lsp.config('lua_ls', {
+        -- for the "vim" global module
+        vim.lsp.config("lua_ls", {
             on_init = function (client)
                 if client.workspace_folders then
                     local path = client.workspace_folders[1].name
                     if
-                        path ~= vim.fn.stdpath('config')
+                        path ~= vim.fn.stdpath("config")
                         ---@diagnostic disable-next-line: undefined-field
-                        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+                        and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
                     then
                         return
                     end
                 end
-                client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
                     runtime = {
-                        version = 'LuaJIT',
+                        version = "LuaJIT",
                         path = {
-                          'lua/?.lua',
-                          'lua/?/init.lua',
+                          "lua/?.lua",
+                          "lua/?/init.lua",
                         },
                     },
                     -- Make the server aware of Neovim runtime files
