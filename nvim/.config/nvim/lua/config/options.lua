@@ -39,7 +39,7 @@ vim.opt.winborder = "rounded" -- native popup window settings
 -- 1    Each block of concealed text is replaced with one character.  If the syntax item does not have a custom replacement character defined, the character defined in 'listchars' is used.
 -- 2    Concealed text is completely hidden unless it has a custom replacement character defined.
 -- 3    Concealed text is completely hidden.
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0
 
 -- number of lines before window top/bottom before scrolling activates
 vim.opt.scrolloff = 10
