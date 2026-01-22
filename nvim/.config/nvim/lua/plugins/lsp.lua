@@ -31,9 +31,9 @@ return {
         -- pyright lsp
         vim.lsp.config("pyright", {
             root_markers = {
+                "pyproject.toml",
                 "requirements.txt",
                 "pyrightconfig.json",
-                "pyproject.toml",
                 "__init__.py",
                 ".git",
                 "setup.py",
@@ -46,9 +46,9 @@ return {
                     analysis = {
                         typeCheckingMode = "basic",
                         useLibraryCodeForTypes = true,
-                        diagnosticSeverityOverrides = {
-                            reportMissingImports = "none"
-                        }
+                        -- diagnosticSeverityOverrides = {
+                        --     reportMissingImports = "none"
+                        -- }
                     }
                 }
             }
