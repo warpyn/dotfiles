@@ -14,6 +14,7 @@ return {
                 "markdown",
                 "markdown_inline",
                 "cpp",
+                "go",
             },
             auto_install = false,
         })

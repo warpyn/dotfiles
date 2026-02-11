@@ -17,6 +17,7 @@ return {
                 "jsonls",
                 "marksman",
                 "tinymist",
+                "gopls",
             },
             automatic_enable = true,
         })

@@ -29,4 +29,3 @@ vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { desc = 'Format the curre
 
 -- lazyvim
 vim.keymap.set('n', '<leader>L', ':Lazy<cr>', { desc = 'Open lazyvim menu', silent = true })
-

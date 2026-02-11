@@ -3,16 +3,21 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
     config = function()
+        local theme = require("lualine.themes.auto")
+        theme.normal.c.bg = "NONE"
+        theme.inactive.c.bg = "NONE"
         require("lualine").setup({
-            -- default setup located at https://github.com/nvim-lualine/lualine.nvim
             sections = {
+                -- default sections setup is located at
+                -- https://github.com/nvim-lualine/lualine.nvim
                 lualine_a = {'mode'},
                 lualine_b = {'filename', 'diff', 'diagnostics'},
                 lualine_c = {'buffers'},
                 lualine_x = {'branch'},
                 lualine_y = {'filetype', 'progress'},
                 lualine_z = {'location'}
-            }
+            },
+            options = { theme = theme }
         })
     end
 }
