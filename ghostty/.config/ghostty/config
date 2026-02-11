@@ -1,0 +1,14 @@
+theme = Vague
+
+font-size = 15
+font-family = "BlexMono Nerd Font Mono"
+
+window-decoration = false
+title = ""
+
+background-opacity = 0.75
+background-blur = 10
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
