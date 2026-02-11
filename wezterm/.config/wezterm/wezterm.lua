@@ -2,9 +2,9 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- fonts
--- config.font = wezterm.font("Terminess Nerd Font Mono", {weight="Medium", stretch="Normal", style="Normal"})
 config.font = wezterm.font("BlexMono Nerd Font Propo", {weight="Regular", stretch="Normal", style="Normal"})
-config.font_size = 14
+-- config.font = wezterm.font("Monaspace Neon", {weight="Light", stretch="Normal", style="Normal"})
+config.font_size = 15
 
 -- appearance
 config.color_scheme = "rose-pine"
