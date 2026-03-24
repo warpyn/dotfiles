@@ -1,12 +1,21 @@
+# theme = Kanagawa Wave
+# theme = Mellow
+# theme = Rose Pine
 theme = Vague
+# theme = Vesper
 
-font-size = 15
-font-family = "BlexMono Nerd Font Mono"
+font-size = 14
+# font-family = "BlexMono Nerd Font Mono"
+# font-family = "Monaspace Neon"
+# font-family = "Iosevka Nerd Font Mono"
+font-family = "IoskeleyMono Nerd Font"
 
-window-decoration = false
+window-padding-y = 0
+window-padding-balance = true
+window-decoration = none
 title = ""
 
-background-opacity = 0.75
+background-opacity = 0.8
 background-blur = 10
 
 cursor-style = block
