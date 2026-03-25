@@ -3,9 +3,6 @@ vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.statuscolumn = "%s%l  " -- disable fold column and directly add spaces to status column for padding
 
--- vim.opt.statuscolumn = "%s%l%C" -- use fold column as spacing
--- vim.opt.foldcolumn = "2"
-
 -- line wrap
 vim.opt.wrap = false
 
@@ -44,6 +41,6 @@ vim.opt.conceallevel = 0
 -- number of lines before window top/bottom before scrolling activates
 vim.opt.scrolloff = 10
 
----- file handling
+-- file handling
 vim.opt.swapfile = false -- Don't create swap files
 vim.opt.autoread = true -- Auto reload files changed outside vim

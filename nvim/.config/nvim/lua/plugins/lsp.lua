@@ -1,14 +1,14 @@
 return {
-    "neovim/nvim-lspconfig",
+    "williamboman/mason-lspconfig.nvim",
     version = "*",
     dependencies = {
+        "neovim/nvim-lspconfig",
         "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
         "saghen/blink.cmp"
     },
     config = function()
 
-        -- setup mason and install lsp servers
+        -- setup mason and install language servers
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
@@ -47,9 +47,6 @@ return {
                     analysis = {
                         typeCheckingMode = "basic",
                         useLibraryCodeForTypes = true,
-                        -- diagnosticSeverityOverrides = {
-                        --     reportMissingImports = "none"
-                        -- }
                     }
                 }
             }
