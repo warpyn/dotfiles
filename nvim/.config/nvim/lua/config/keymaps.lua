@@ -27,5 +27,6 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename document 
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Select a code action' })
 vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { desc = 'Format the current buffer' })
 
--- lazyvim
+-- plugin menus
 vim.keymap.set('n', '<leader>L', ':Lazy<cr>', { desc = 'Open lazyvim menu', silent = true })
+vim.keymap.set('n', '<leader>M', ':Mason<cr>', { desc = 'Open Mason menu', silent = true })
