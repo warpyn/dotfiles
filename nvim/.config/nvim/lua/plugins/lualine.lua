@@ -2,6 +2,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
+    priority = 10,
     config = function()
         local theme = require("lualine.themes.auto")
         theme.normal.c.bg = "NONE"
@@ -17,7 +18,9 @@ return {
                 lualine_y = {'filetype', 'progress'},
                 lualine_z = {'location'}
             },
-            options = { theme = theme }
+            options = {
+                theme = theme,
+            }
         })
     end
 }
