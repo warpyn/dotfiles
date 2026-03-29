@@ -22,12 +22,13 @@ return {
             automatic_enable = true,
         })
 
+        -- lsp diagnostics
+        vim.diagnostic.config({ severity_sort = true, virtual_text = true })
+        vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, { desc = "Open diagnostic message in a floating window" })
+
         -- lsp completion integration
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         vim.lsp.config("*", { capabilities = capabilities })
-
-        -- lsp diagnostics
-        vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 
         -- pyright lsp
         vim.lsp.config("pyright", {

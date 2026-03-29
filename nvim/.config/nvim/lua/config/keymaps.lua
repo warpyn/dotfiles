@@ -20,13 +20,3 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
 -- text management
 vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('n', '<leader>ch', ":s/\\[ \\]/[x]/<cr>", { desc = "Check box" })
-
--- lsp & diagnostics
-vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = 'Open diagnostic message in a floating window' })
-vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename document symbol' })
-vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Select a code action' })
-vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { desc = 'Format the current buffer' })
-
--- plugin menus
-vim.keymap.set('n', '<leader>L', ':Lazy<cr>', { desc = 'Open lazyvim menu', silent = true })
-vim.keymap.set('n', '<leader>M', ':Mason<cr>', { desc = 'Open Mason menu', silent = true })

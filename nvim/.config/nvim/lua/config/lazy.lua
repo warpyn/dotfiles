@@ -34,3 +34,6 @@ require("lazy").setup({
   checker = { enabled = true },
   change_detection = { notify = false }
 })
+
+-- Open Lazy Menu
+vim.keymap.set("n", "<leader>L", ":Lazy<cr>", { desc = "Open lazyvim menu", silent = true })
