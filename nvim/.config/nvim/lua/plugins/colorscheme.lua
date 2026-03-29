@@ -2,8 +2,6 @@
 -- https://github.com/rose-pine/neovim/blob/main/lua/rose-pine.lua
 -- for palette:
 -- https://rosepinetheme.com/palette/ingredients/
--- useful command:
--- :TSHighlightCapturesUnderCursor
 
 return {
 
@@ -46,6 +44,15 @@ return {
     -- config = function ()
     --     vim.g.mellow_transparent = true
     --     vim.cmd("colorscheme mellow")
+    -- end
+
+    -- "danfry1/lume",
+    -- lazy = false,
+    -- config = function()
+    --     require("lume").setup({
+    --         transparent = true
+    --     })
+    --     vim.cmd("colorscheme lume")
     -- end
 
 }

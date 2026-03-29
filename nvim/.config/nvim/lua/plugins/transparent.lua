@@ -4,11 +4,9 @@ return {
     priority = 5,
     config = function ()
         require("transparent").setup({
-            extra_groups = {
-                "NormalFloat"
-            },
+            extra_groups = { "NormalFloat" }
         })
-        -- require("transparent").clear_prefix("Snacks")
+        require("transparent").clear_prefix("Lazy")
         require("transparent").clear_prefix("BlinkCmp")
         vim.cmd("TransparentEnable")
     end
