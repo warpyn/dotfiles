@@ -32,23 +32,11 @@ return {
 
         -- pyright lsp
         vim.lsp.config("pyright", {
-            root_markers = {
-                "pyproject.toml",
-                "requirements.txt",
-                "pyrightconfig.json",
-                "__init__.py",
-                ".git",
-                "setup.py",
-                "setup.cfg",
-                "Pipfile"
-            },
+            root_markers = { "pyproject.toml", "requirements.txt", "pyrightconfig.json", "__init__.py", ".git", "setup.py", "setup.cfg", "Pipfile" },
             settings = {
                 python = {
                     pythonPath = vim.fn.exepath("python"),
-                    analysis = {
-                        typeCheckingMode = "basic",
-                        useLibraryCodeForTypes = true,
-                    }
+                    analysis = { typeCheckingMode = "basic", useLibraryCodeForTypes = true }
                 }
             }
         })
@@ -69,25 +57,12 @@ return {
                     end
                 end
                 client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                    runtime = {
-                        version = "LuaJIT",
-                        path = {
-                          "lua/?.lua",
-                          "lua/?/init.lua",
-                        },
-                    },
                     -- Make the server aware of Neovim runtime files
-                    workspace = {
-                        checkThirdParty = false,
-                        library = {
-                          vim.env.VIMRUNTIME
-                        }
-                    }
+                    runtime = { version = "LuaJIT", path = { "lua/?.lua", "lua/?/init.lua", }, },
+                    workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } }
                 })
             end,
-            settings = {
-                Lua = {}
-            }
+            settings = { Lua = {} }
         })
 
     end

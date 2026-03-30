@@ -15,6 +15,8 @@ return {
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help Tags" })
         vim.keymap.set("n", "<leader>fo", ":Telescope oldfiles<cr>", { desc = "Find Oldfiles", silent = true })
         vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
+        vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
+        vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Resume Previous Picker" })
 
         vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Go to Definition" })
         vim.keymap.set("n", "gO", builtin.lsp_document_symbols, { desc = "Go to Document Symbols" })
