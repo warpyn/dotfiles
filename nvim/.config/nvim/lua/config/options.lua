@@ -23,7 +23,6 @@ function MyStatusLine()
     local statusline_opts = {
         -- %-0{minwid}.{maxwid}{item}
         " %r", -- readonly flag
-        -- GetGitFileLineDiffCount(),
         " %m", -- modified flag
         "%=", -- alignment separator
         GetGitInfo(), -- git info
