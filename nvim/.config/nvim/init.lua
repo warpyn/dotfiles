@@ -1,16 +1,19 @@
 --- LEADER KEY ---
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+
 --- PLUGINS ---
+
 -- treesitter
 vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
 require("nvim-treesitter").setup()
 require("nvim-treesitter").install({ "lua", "python", "markdown", "markdown_inline", "cpp", "go" })
 require("nvim-treesitter.install").update("all")
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "<filetype>" },
-  callback = function() vim.treesitter.start() end,
+    pattern = { "<filetype>" },
+    callback = function() vim.treesitter.start() end,
 })
+
 -- completion
 vim.pack.add({ { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") } })
 require("blink.cmp").setup({
@@ -21,6 +24,7 @@ require("blink.cmp").setup({
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
     fuzzy = { implementation = "prefer_rust_with_warning" },
 })
+
 -- lsp and language servers
 vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
@@ -72,7 +76,7 @@ vim.lsp.config("lua_ls", {
     settings = { Lua = {} }
 })
 vim.diagnostic.config({ severity_sort = true, virtual_text = true })
-vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, { desc = "Open diagnostic message in a floating window" })
+
 -- fuzzy finder 
 vim.pack.add({
     "https://github.com/nvim-mini/mini.icons",
@@ -87,20 +91,16 @@ vim.keymap.set("n", "<leader>fb", fzf_lua.buffers, { desc = "FZF Buffers" })
 vim.keymap.set("n", "<leader>fh", fzf_lua.help_tags, { desc = "FZF Help Tags" })
 vim.keymap.set("n", "<leader>fd", fzf_lua.diagnostics_document, { desc = "FZF Diagnostics Document" })
 vim.keymap.set("n", "<leader>fD", fzf_lua.diagnostics_workspace, { desc = "FZF Diagnostics Workspace" })
--- git signs
-vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
-vim.keymap.set("n", "<leader>ghs", ":Gitsigns stage_hunk<cr>", { desc = "Git Hunk: Stage", silent =  true })
-vim.keymap.set("n", "<leader>ghr", ":Gitsigns reset_hunk<cr>", { desc = "Git Hunk: Reset", silent =  true })
-vim.keymap.set("n", "<leader>ghp", ":Gitsigns preview_hunk<cr>", { desc = "Git Hunk: Preview", silent =  true })
--- oil
+
+-- utilities
 vim.pack.add({
+    "https://github.com/lewis6991/gitsigns.nvim",
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/malewicz1337/oil-git.nvim",
+    "https://github.com/folke/which-key.nvim",
+    "https://github.com/benomahony/uv.nvim",
 })
-require("oil").setup({ view_options = { show_hidden = true } })
-vim.keymap.set("n", "<leader>e", ":Oil<cr>", { desc = "Oil File Explorer (parent directory)", silent = true })
--- which-key
-vim.pack.add({ "https://github.com/folke/which-key.nvim" })
+
 require("which-key").setup({
     preset = "helix",
     spec = {
@@ -112,18 +112,15 @@ require("which-key").setup({
         }
     }
 })
--- uv
-vim.pack.add({ "https://github.com/benomahony/uv.nvim" })
+require("oil").setup({ view_options = { show_hidden = true } })
 require("uv").setup()
+
 -- appearance
 vim.pack.add({
     "https://github.com/vague2k/vague.nvim",
     "https://github.com/xiyaowong/transparent.nvim",
 })
-require("vague").setup({
-    transparent = true,
-    style = { keywords = "bold" },
-})
+require("vague").setup({ transparent = true, style = { keywords = "bold" } })
 vim.cmd("colorscheme vague")
 require("transparent").setup()
 
@@ -156,7 +153,6 @@ vim.opt.conceallevel = 0
 -- file handling
 vim.opt.swapfile = false
 vim.opt.autoread = true
-
 -- statusline
 function GetGitInfo()
     local git_info = vim.b.gitsigns_status_dict
@@ -173,7 +169,7 @@ function GetGitInfo()
         return table.concat({ added, changed, removed, head })
     end
 end
-function StatusLineActive()
+function StatuslineActive()
     local statusline_opts = {
         -- %-0{minwid}.{maxwid}{item}
         " %r", -- readonly flag
@@ -191,23 +187,19 @@ function StatusLineActive()
     end
     return vim.fn.expand("%:~:.") .. rest
 end
-function StatusLineInactive()
+function StatuslineInactive()
     return " %t"
 end
 local group = vim.api.nvim_create_augroup("Statusline", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     group = group,
     desc = "Activate statusline on focus",
-    callback = function()
-        vim.opt_local.statusline = "%!v:lua.StatusLineActive()"
-    end
+    callback = function() vim.opt_local.statusline = "%!v:lua.StatuslineActive()" end
 })
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     group = group,
     desc = "Activate statusline on unfocus",
-    callback = function()
-        vim.opt_local.statusline = "%!v:lua.StatusLineInactive()"
-    end
+    callback = function() vim.opt_local.statusline = "%!v:lua.StatuslineInactive()" end
 })
 
 --- KEYMAPS ---
@@ -223,3 +215,11 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
 -- text management
 vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('n', '<leader>ch', ":s/\\[ \\]/[x]/<cr>", { desc = "Check box" })
+-- git signs
+vim.keymap.set("n", "<leader>ghs", ":Gitsigns stage_hunk<cr>", { desc = "Git Hunk: Stage", silent =  true })
+vim.keymap.set("n", "<leader>ghr", ":Gitsigns reset_hunk<cr>", { desc = "Git Hunk: Reset", silent =  true })
+vim.keymap.set("n", "<leader>ghp", ":Gitsigns preview_hunk<cr>", { desc = "Git Hunk: Preview", silent =  true })
+-- diagnostics
+vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, { desc = "Open diagnostic message in a floating window" })
+-- oil
+vim.keymap.set("n", "<leader>e", ":Oil<cr>", { desc = "Oil File Explorer (parent directory)", silent = true })
