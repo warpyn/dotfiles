@@ -16,6 +16,8 @@ vim.pack.add({
     "https://github.com/malewicz1337/oil-git.nvim",
     "https://github.com/folke/which-key.nvim",
     "https://github.com/benomahony/uv.nvim",
+    "https://github.com/xiyaowong/transparent.nvim",
+    "https://github.com/vague2k/vague.nvim",
 })
 
 -- treesitter
@@ -39,7 +41,7 @@ require("blink.cmp").setup({
     appearance = { nerd_font_variant = "mono" },
     completion = { documentation = { auto_show = false } },
     signature = { enabled = true },
-    sources = { default = { "lsp", "path", "snippets", "buffer" } },
+    sources = { default = { "lsp", "path", "snippets", "buffer", "omni" } },
     fuzzy = { implementation = "prefer_rust_with_warning" },
 })
 
@@ -59,8 +61,10 @@ require("mason-lspconfig").setup({
 vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities() })
 vim.lsp.config("pyright", {
-    root_markers = { "pyproject.toml", "requirements.txt", "pyrightconfig.json", "__init__.py", ".git", "setup.py", "setup.cfg", "Pipfile" },
-    settings = { python = { pythonPath = vim.fn.exepath("python"), analysis = { typeCheckingMode = "basic", useLibraryCodeForTypes = true } } }
+    settings = { python = {
+        pythonPath = vim.fn.exepath("python"),
+        analysis = { typeCheckingMode = "basic", useLibraryCodeForTypes = true }
+    }}
 })
 vim.lsp.config("lua_ls", {
     -- copied from https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
@@ -81,7 +85,10 @@ vim.lsp.config("lua_ls", {
 -- utilities
 require("mini.icons").setup()
 local fzf_lua = require("fzf-lua")
-fzf_lua.setup({ files = { cwd_prompt = false } })
+fzf_lua.setup({
+    actions = { files = { ["enter"] = fzf_lua.actions.file_edit } },
+    files = { cwd_prompt = false }
+})
 require("oil").setup({ view_options = { show_hidden = true } })
 require("oil-git").setup()
 require("which-key").setup({
@@ -95,11 +102,7 @@ require("which-key").setup({
 })
 require("uv").setup()
 
---- APPEARANCE ---
-vim.pack.add({
-    "https://github.com/xiyaowong/transparent.nvim",
-    "https://github.com/vague2k/vague.nvim",
-})
+-- appearance --
 require("vague").setup({ transparent = true, style = { keywords = "bold" } })
 vim.cmd("colorscheme vague")
 require("transparent").setup()
@@ -123,6 +126,7 @@ vim.opt.smartcase = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- appearance
+vim.opt.guicursor = "i-ci:blinkwait500-blinkon500-blinkoff500" -- block cursor, blinking during insert mode
 vim.opt.cursorline = false
 vim.opt.termguicolors = true
 vim.opt.fillchars = { eob = " " } -- disables the "~" displayed at the bottom of a window
@@ -150,12 +154,15 @@ function M.git()
         return table.concat({ added, changed, removed, head })
     end
 end
+local function get_relative_filepath()
+    return (vim.fn.expand("%:~:.") == "" or vim.bo.buftype ~= "") and "%t" or vim.fn.expand("%:~:.")
+end
 function M.active()
     -- handle cases where files are loaded using their absolute path
-    local name_opt = (vim.fn.expand("%:~:.") == "" or vim.bo.buftype ~= "") and "%t" or vim.fn.expand("%:~:.")
+    -- local name_opt = (vim.fn.expand("%:~:.") == "" or vim.bo.buftype ~= "") and "%t" or vim.fn.expand("%:~:.")
     return table.concat({
         -- %-0{minwid}.{maxwid}{item}
-        name_opt,
+        get_relative_filepath(),
         " %r", -- readonly flag
         " %m", -- modified flag
         "%=", -- alignment separator
@@ -166,17 +173,32 @@ function M.active()
         " %2l:%-2c " -- cursor line and column number
     })
 end
-function M.inactive() return " %t" end
+function M.inactive() return get_relative_filepath() end
+
+local function is_floating(win)
+    local cfg = vim.api.nvim_win_get_config(win or 0)
+    return cfg.relative ~= ""
+end
 local group = vim.api.nvim_create_augroup("Statusline", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     group = group,
     desc = "Activate statusline on focus",
-    callback = function() vim.opt_local.statusline = "%!v:lua.M.active()" end
+    callback = function()
+        if is_floating(0) or vim.bo.buftype ~= "" then
+            return
+        end
+        vim.opt_local.statusline = "%!v:lua.M.active()"
+    end
 })
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     group = group,
     desc = "Activate statusline on unfocus",
-    callback = function() vim.opt_local.statusline = "%!v:lua.M.inactive()" end
+    callback = function()
+        if is_floating(0) or vim.bo.buftype ~= "" then
+            return
+        end
+        vim.opt_local.statusline = "%!v:lua.M.inactive()"
+    end
 })
 
 --- KEYMAPS ---
@@ -192,6 +214,7 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- text
 vim.keymap.set({"n", "v"}, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>ch", ":s/\\[ \\]/[x]/<cr>", { desc = "Check box" })
+vim.keymap.set("n", "<leader>sd", [[:.!date +"- \%Y-\%m-\%d \%A"<cr>]], { desc = "Date-Day Snippet", silent = true })
 -- fzf
 vim.keymap.set("n", "<leader>ff", fzf_lua.files, { desc = "FZF Find Files" })
 vim.keymap.set("n", "<leader>fg", fzf_lua.live_grep, { desc = "FZF Live Grep" })
@@ -199,6 +222,7 @@ vim.keymap.set("n", "<leader>fb", fzf_lua.buffers, { desc = "FZF Buffers" })
 vim.keymap.set("n", "<leader>fk", fzf_lua.keymaps, { desc = "FZF Keymaps" })
 vim.keymap.set("n", "<leader>fh", fzf_lua.help_tags, { desc = "FZF Help Tags" })
 vim.keymap.set("n", "<leader>fr", fzf_lua.resume, { desc = "FZF Resume Last Query" })
+vim.keymap.set("n", "<leader>fo", fzf_lua.oldfiles, { desc = "FZF Recent Files" })
 vim.keymap.set("n", "<leader>fd", fzf_lua.diagnostics_document, { desc = "FZF Diagnostics Document" })
 vim.keymap.set("n", "<leader>fD", fzf_lua.diagnostics_workspace, { desc = "FZF Diagnostics Workspace" })
 -- lsp / diagnostics actions
