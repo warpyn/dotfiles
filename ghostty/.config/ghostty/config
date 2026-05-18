@@ -19,5 +19,5 @@ background-opacity = 0.8
 background-blur = 10
 
 cursor-style = block
-cursor-style-blink = false
-shell-integration-features = no-cursor
+cursor-style-blink = true
+shell-integration-features = false
