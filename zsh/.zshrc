@@ -10,6 +10,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     fi
 fi
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humdrum/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humextra/bin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
