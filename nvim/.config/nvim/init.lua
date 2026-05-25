@@ -15,6 +15,7 @@ vim.pack.add({
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/malewicz1337/oil-git.nvim",
     "https://github.com/folke/which-key.nvim",
+    "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/benomahony/uv.nvim",
     { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
     "https://github.com/xiyaowong/transparent.nvim",
@@ -101,6 +102,7 @@ require("which-key").setup({
         { "<leader>gh", group = "Git Hunk"  }
     }}
 })
+require("render-markdown").setup({})
 require("uv").setup()
 
 -- appearance --
