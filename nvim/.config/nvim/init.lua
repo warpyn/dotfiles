@@ -177,14 +177,15 @@ function M.active()
     })
 end
 function M.inactive() return get_relative_filepath() end
-
 local function is_floating(win)
     local cfg = vim.api.nvim_win_get_config(win or 0)
     return cfg.relative ~= ""
 end
-local group = vim.api.nvim_create_augroup("Statusline", { clear = true })
+--- AUTOCOMMANDS ---
+-- statusline
+local group_statusline = vim.api.nvim_create_augroup("Statusline", { clear = true })
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-    group = group,
+    group = group_statusline,
     desc = "Activate statusline on focus",
     callback = function()
         if is_floating(0) or vim.bo.buftype ~= "" then
@@ -194,7 +195,7 @@ vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     end
 })
 vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-    group = group,
+    group = group_statusline,
     desc = "Activate statusline on unfocus",
     callback = function()
         if is_floating(0) or vim.bo.buftype ~= "" then
@@ -202,6 +203,11 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
         end
         vim.opt_local.statusline = "%!v:lua.M.inactive()"
     end
+})
+-- autoread+: reload file into buffer
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+    command = "if mode() != 'c' | checktime | endif",
+    pattern = "*",
 })
 
 --- KEYMAPS ---
