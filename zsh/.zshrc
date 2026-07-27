@@ -11,8 +11,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.config/emacs/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humdrum/bin:$PATH"
 export PATH="$HOME/humdrum-tools/humextra/bin:$PATH"
+export PATH="$(go env GOPATH)/bin:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
 
 #### ALIASES ####
