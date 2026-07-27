@@ -18,7 +18,8 @@ vim.pack.add({
     "https://github.com/benomahony/uv.nvim",
     { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
     "https://github.com/xiyaowong/transparent.nvim",
-    "https://github.com/vague2k/vague.nvim",
+    -- "https://github.com/vague2k/vague.nvim",
+    "https://github.com/mitander/flume.nvim",
 })
 
 -- treesitter
@@ -104,8 +105,9 @@ require("which-key").setup({
 require("uv").setup()
 
 -- appearance --
-require("vague").setup({ transparent = true, style = { keywords = "bold" } })
-vim.cmd("colorscheme vague")
+-- require("vague").setup({ transparent = true, style = { keywords = "bold" } })
+require("flume").setup({ transparent = true, keywords = { bold = true } })
+vim.cmd("colorscheme flume")
 require("transparent").setup()
 
 --- OPTIONS ---
