@@ -18,8 +18,7 @@ vim.pack.add({
     "https://github.com/benomahony/uv.nvim",
     { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("^9") },
     "https://github.com/xiyaowong/transparent.nvim",
-    -- "https://github.com/vague2k/vague.nvim",
-    "https://github.com/mitander/flume.nvim",
+    "https://github.com/vague2k/vague.nvim",
 })
 
 -- treesitter
@@ -57,6 +56,7 @@ require("mason-lspconfig").setup({
         "marksman",
         "tinymist",
         "gopls",
+        "clangd",
     },
     automatic_enable = true,
 })
@@ -105,9 +105,8 @@ require("which-key").setup({
 require("uv").setup()
 
 -- appearance --
--- require("vague").setup({ transparent = true, style = { keywords = "bold" } })
-require("flume").setup({ transparent = true, keywords = { bold = true } })
-vim.cmd("colorscheme flume")
+require("vague").setup({ transparent = true, style = { keywords = "bold" } })
+vim.cmd("colorscheme vague")
 require("transparent").setup()
 
 --- OPTIONS ---
@@ -247,7 +246,9 @@ vim.keymap.set("n", "<leader>gs", fzf_lua.git_status, { desc = "Git Status" })
 vim.keymap.set("n", "<leader>gc", fzf_lua.git_commits, { desc = "Git Commits" })
 vim.keymap.set("n", "<leader>ghs", ":Gitsigns stage_hunk<cr>", { desc = "Git Hunk: Stage", silent =  true })
 vim.keymap.set("n", "<leader>ghr", ":Gitsigns reset_hunk<cr>", { desc = "Git Hunk: Reset", silent =  true })
-vim.keymap.set("n", "<leader>ghp", ":Gitsigns preview_hunk<cr>", { desc = "Git Hunk: Preview", silent =  true })
+vim.keymap.set("n", "<leader>ghi", ":Gitsigns preview_hunk<cr>", { desc = "Git Hunk: Preview (Inspect)", silent =  true })
+vim.keymap.set("n", "<leader>ghp", ":Gitsigns prev_hunk<cr>", { desc = "Git Hunk: Previous", silent =  true })
+vim.keymap.set("n", "<leader>ghn", ":Gitsigns next_hunk<cr>", { desc = "Git Hunk: Next", silent =  true })
 -- ui
 vim.keymap.set("n", "<Esc>", ":noh<cr>", { desc = "Remove search highlighting", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>e", ":Oil<cr>", { desc = "Oil File Explorer (parent directory)", silent = true })
