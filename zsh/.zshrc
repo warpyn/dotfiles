@@ -49,6 +49,7 @@ alias v=nvim
 alias cdc="cd $HOME/chrysalis"
 alias pkm="cd $HOME/chrysalis/pkm"
 alias dot="cd $HOME/chrysalis/sys/dotfiles"
+alias gw="git worktree"
 alias j="jira issue list -a$(jira me) --order-by status --reverse"
 if [[ "$OSTYPE" == darwin* ]]; then
     alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
